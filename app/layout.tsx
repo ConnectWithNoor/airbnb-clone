@@ -1,7 +1,7 @@
 import { Nunito } from "next/font/google";
 
 import "./globals.css";
-import { Navbar } from "./components";
+import { ClientOnly, Navbar } from "./components";
 
 export const metadata = {
   title: "Airbnb Clone - ConnectWithNoor",
@@ -21,7 +21,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={font.className}>
-        <Navbar />
+        <ClientOnly>
+          <Navbar />
+        </ClientOnly>
         {children}
       </body>
     </html>
