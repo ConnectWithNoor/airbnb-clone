@@ -12,6 +12,7 @@ import { USER_REGISTER_ENDPOINT } from "@/app/utils/constants";
 import Modal from "./Modal";
 import Heading from "../typography/Heading";
 import Input from "../form/Input";
+import Button from "../form/Button";
 
 function RegisterModal() {
   const [isLoading, setisLoading] = useState(false);
@@ -74,6 +75,35 @@ function RegisterModal() {
     </div>
   );
 
+  const footerContent = (
+    <div className="flex flex-col gap-4 mt-3">
+      <hr />
+      <Button
+        outline
+        label="Continue with Google"
+        icon={FcGoogle}
+        onClick={() => {}}
+      />
+      <Button
+        outline
+        label="Continue with Github"
+        icon={AiFillGithub}
+        onClick={() => {}}
+      />
+      <div className="text-neutral-500 text-center mt-4 font-light">
+        <div className="flex flex-row items-center justify-center gap-2">
+          <div>Already have an account?</div>
+          <div
+            onClick={registerModal.onClose}
+            className="text-neutral-800 cursor-pointer hover:underline"
+          >
+            Log in
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
   return (
     <Modal
       disabled={isLoading}
@@ -83,6 +113,7 @@ function RegisterModal() {
       onClose={registerModal.onClose}
       body={bodyContent}
       onSubmit={handleSubmit(onSubmit)}
+      footer={footerContent}
     />
   );
 }

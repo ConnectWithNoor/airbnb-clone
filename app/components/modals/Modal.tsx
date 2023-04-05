@@ -111,6 +111,7 @@ function Modal({
                     type="submit"
                   />
                 </div>
+                {footer}
               </div>
             </form>
           </div>
