@@ -2,7 +2,18 @@ import Container from "./container/Container";
 import Navbar from "./navbar/Navbar";
 import Avatar from "./user/Avatar";
 import ClientOnly from "./client/ClientOnly";
-import Modal from "./modals/Modal";
-import Button from "./button/Button";
+import Button from "./form/Button";
+import RegisterModal from "./modals/RegisterModal";
+import Heading from "./typography/Heading";
+import Input from "./form/Input";
 
-export { Navbar, Container, Avatar, ClientOnly, Modal, Button };
+export {
+  Navbar,
+  Container,
+  Avatar,
+  ClientOnly,
+  RegisterModal,
+  Button,
+  Heading,
+  Input,
+};
