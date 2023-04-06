@@ -6,9 +6,10 @@ import Container from "../container/Container";
 import Logo from "./Logo";
 import Search from "./Search";
 import UserMenu from "./UserMenu";
+import { SafeUser } from "@/app/types";
 
 type Props = {
-  currentUser?: User | null;
+  currentUser?: SafeUser | null;
 };
 
 function Navbar({ currentUser }: Props) {

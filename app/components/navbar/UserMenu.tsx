@@ -2,7 +2,6 @@
 
 import { AiOutlineMenu } from "react-icons/ai";
 import { useCallback, useState } from "react";
-import { User } from "@prisma/client";
 import { signOut } from "next-auth/react";
 
 import useRegisterModal from "@/app/hooks/useRegisterModal";
@@ -10,9 +9,10 @@ import useLoginModal from "@/app/hooks/useLoginModal";
 
 import MenuItem from "./MenuItem";
 import Avatar from "../user/Avatar";
+import { SafeUser } from "@/app/types";
 
 type Props = {
-  currentUser?: User | null;
+  currentUser?: SafeUser | null;
 };
 
 function UserMenu({ currentUser }: Props) {
@@ -23,8 +23,6 @@ function UserMenu({ currentUser }: Props) {
   const toggleOpen = useCallback(() => {
     setIsOpen((value) => !value);
   }, []);
-
-  console.log(currentUser);
 
   return (
     <div className="relative">
@@ -41,7 +39,7 @@ function UserMenu({ currentUser }: Props) {
         >
           <AiOutlineMenu />
           <div className="hidden md:block">
-            <Avatar />
+            <Avatar src={currentUser?.image} />
           </div>
         </div>
       </div>
