@@ -1,12 +1,12 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { AiFillGithub } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
 import { toast } from "react-hot-toast";
 
-import axiosInstance from "@/lib/axiosInstance";
+import axiosInstance from "@/app/libs/axiosInstance";
 import useRegisterModal from "@/app/hooks/useRegisterModal";
 import { USER_REGISTER_ENDPOINT } from "@/app/utils/constants";
 import Modal from "./Modal";
