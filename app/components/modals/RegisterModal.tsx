@@ -14,6 +14,7 @@ import Modal from "./Modal";
 import Heading from "../typography/Heading";
 import Input from "../form/Input";
 import Button from "../form/Button";
+import useLoginModal from "@/app/hooks/useLoginModal";
 
 function RegisterModal() {
   const [isLoading, setisLoading] = useState(false);
@@ -30,6 +31,7 @@ function RegisterModal() {
     },
   });
   const registerModal = useRegisterModal();
+  const loginModal = useLoginModal();
 
   const onSubmit: SubmitHandler<FieldValues> = useCallback(
     async (data, event) => {
@@ -47,6 +49,11 @@ function RegisterModal() {
     },
     [registerModal, reset]
   );
+
+  const toggle = useCallback(() => {
+    registerModal.onClose();
+    loginModal.onOpen();
+  }, [loginModal, registerModal]);
 
   const bodyContent = (
     <div className="flex flex-col gap-4">
@@ -100,7 +107,7 @@ function RegisterModal() {
         <div className="flex flex-row items-center justify-center gap-2">
           <div>Already have an account?</div>
           <div
-            onClick={registerModal.onClose}
+            onClick={toggle}
             className="text-neutral-800 cursor-pointer hover:underline"
           >
             Log in
