@@ -1,7 +1,5 @@
 "use client";
 
-import { User } from "@prisma/client";
-
 import Container from "../container/Container";
 import Logo from "./Logo";
 import Search from "./Search";
