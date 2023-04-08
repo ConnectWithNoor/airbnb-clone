@@ -7,6 +7,7 @@ import RegisterModal from "./modals/RegisterModal";
 import Heading from "./typography/Heading";
 import Input from "./form/Input";
 import LoginModal from "./modals/LoginModal";
+import RentModal from "./modals/RentModal";
 
 export {
   Navbar,
@@ -18,4 +19,5 @@ export {
   Heading,
   Input,
   LoginModal,
+  RentModal,
 };

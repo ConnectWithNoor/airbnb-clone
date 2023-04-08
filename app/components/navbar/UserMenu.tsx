@@ -10,6 +10,7 @@ import useLoginModal from "@/app/hooks/useLoginModal";
 import MenuItem from "./MenuItem";
 import Avatar from "../user/Avatar";
 import { SafeUser } from "@/app/types";
+import useRentModal from "@/app/hooks/useRentModal";
 
 type Props = {
   currentUser?: SafeUser | null;
@@ -18,6 +19,7 @@ type Props = {
 function UserMenu({ currentUser }: Props) {
   const registerModal = useRegisterModal();
   const loginModal = useLoginModal();
+  const rentModal = useRentModal();
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleOpen = useCallback(() => {
@@ -29,8 +31,8 @@ function UserMenu({ currentUser }: Props) {
       return loginModal.onOpen();
     }
 
-    // open Rent Modal
-  }, [currentUser, loginModal]);
+    rentModal.onOpen();
+  }, [currentUser, loginModal, rentModal]);
 
   return (
     <div className="relative">
@@ -72,7 +74,7 @@ function UserMenu({ currentUser }: Props) {
                 <MenuItem onClick={() => {}} label="My favorites" />
                 <MenuItem onClick={() => {}} label="My reservations" />
                 <MenuItem onClick={() => {}} label="My properties" />
-                <MenuItem onClick={() => {}} label="Airbnb my home" />
+                <MenuItem onClick={rentModal.onOpen} label="Airbnb my home" />
                 <hr />
                 <MenuItem onClick={signOut} label="Logout" />
               </>

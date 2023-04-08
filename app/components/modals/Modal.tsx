@@ -7,7 +7,8 @@ import Button from "../form/Button";
 type Props = {
   isOpen?: boolean;
   onClose: () => void;
-  onSubmit: () => void;
+  onSubmit: (() => void) | null;
+  onNext?: () => void;
   title?: string;
   body?: React.ReactNode;
   footer?: React.ReactNode;
@@ -22,6 +23,7 @@ function Modal({
   footer,
   onClose,
   onSubmit,
+  onNext,
   body,
   disabled,
   isOpen,
@@ -72,7 +74,7 @@ function Modal({
             `}
           >
             <form
-              onSubmit={onSubmit}
+              onSubmit={onSubmit!}
               className="translate h-full lg-h-auto md:h-auto border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white  outline-none focus:outline-none"
             >
               {/* HEADER */}
@@ -105,11 +107,22 @@ function Modal({
                     />
                   )}
 
-                  <Button
-                    disabled={disabled}
-                    label={actionLabel}
-                    type="submit"
-                  />
+                  {typeof onSubmit === "function" && (
+                    <Button
+                      disabled={disabled}
+                      label={actionLabel}
+                      type="submit"
+                    />
+                  )}
+
+                  {typeof onNext === "function" && (
+                    <Button
+                      disabled={disabled}
+                      label={actionLabel}
+                      type="button"
+                      onClick={onNext}
+                    />
+                  )}
                 </div>
                 {footer}
               </div>
