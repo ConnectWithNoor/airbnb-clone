@@ -1,15 +1,14 @@
 "use client";
 
 import React, { useMemo, useState } from "react";
+import dynamic from "next/dynamic";
+import { FieldValues, useForm } from "react-hook-form";
 import Modal from "./Modal";
 import useRentModal from "@/app/hooks/useRentModal";
 import Heading from "../typography/Heading";
 import { categories } from "@/app/utils/constants";
 import CategoryInput from "../form/CategoryInput";
-import { FieldValues, useForm } from "react-hook-form";
 import CountrySelect from "../form/CountrySelect";
-import Map from "../map/Map";
-
 enum STEPS {
   CATEGORY = 0,
   LOCATION = 1,
@@ -22,6 +21,9 @@ enum STEPS {
 function RentModal() {
   const rentModal = useRentModal();
   const [step, setStep] = useState(STEPS.CATEGORY);
+  const Map = dynamic(() => import("../map/Map"), {
+    ssr: false,
+  });
 
   const {
     register,
@@ -111,7 +113,7 @@ function RentModal() {
           value={location}
           onChange={(value) => setCustomValue("location", value)}
         />
-        <Map />
+        <Map center={location?.latlng} />
       </div>
     );
   }
