@@ -18,6 +18,7 @@ import { MdOutlineVilla } from "react-icons/md";
 
 const USER_REGISTER_ENDPOINT = "/api/register";
 const LISTING_ADD_ENDPOINT = "/api/listings";
+const FAVORITE_LISTING_ENDPOINT = "/api/favorites";
 
 // CATEGORIES
 
@@ -99,4 +100,9 @@ const categories = [
   },
 ];
 
-export { USER_REGISTER_ENDPOINT, categories, LISTING_ADD_ENDPOINT };
+export {
+  USER_REGISTER_ENDPOINT,
+  categories,
+  LISTING_ADD_ENDPOINT,
+  FAVORITE_LISTING_ENDPOINT,
+};
