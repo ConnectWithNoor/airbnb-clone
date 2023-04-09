@@ -37,7 +37,7 @@ export default async function RootLayout({
           <Navbar currentUser={currentUser} />
           <ToasterProvider />
         </ClientOnly>
-        {children}
+        <div className="pb-20 pt-28">{children}</div>
       </body>
     </html>
   );
