@@ -3,6 +3,7 @@
 import React, { useMemo, useState } from "react";
 import dynamic from "next/dynamic";
 import { FieldValues, useForm } from "react-hook-form";
+import { toast } from "react-hot-toast";
 import Modal from "./Modal";
 import useRentModal from "@/app/hooks/useRentModal";
 import Heading from "../typography/Heading";
@@ -10,6 +11,8 @@ import { categories } from "@/app/utils/constants";
 import CategoryInput from "../form/CategoryInput";
 import CountrySelect from "../form/CountrySelect";
 import Counter from "../counter/Counter";
+import ImageUpload from "../form/imageUpload";
+
 enum STEPS {
   CATEGORY = 0,
   LOCATION = 1,
@@ -51,6 +54,7 @@ function RentModal() {
   const guestCount = watch("guestCount");
   const roomCount = watch("roomCount");
   const bathroomCount = watch("bathroomCount");
+  const imageSrc = watch("imageSrc");
 
   const setCustomValue = (id: string, value: any) => {
     setValue(id, value, {
@@ -65,7 +69,15 @@ function RentModal() {
   };
 
   const onNext = () => {
-    setStep((value) => value + 1);
+    if (step === STEPS.CATEGORY && !category) {
+      toast.error("Category is required");
+    } else if (step === STEPS.LOCATION && !location) {
+      toast.error("Location is required");
+    } else if (step === STEPS.IMAGES && !imageSrc) {
+      toast.error("Image is required");
+    } else {
+      setStep((value) => value + 1);
+    }
   };
 
   const actionLabel = useMemo(() => {
@@ -154,6 +166,23 @@ function RentModal() {
           onChange={(value) => {
             setCustomValue("bathroomCount", value);
           }}
+        />
+      </div>
+    );
+  }
+
+  if (step === STEPS.IMAGES) {
+    bodyContent = (
+      <div className="flex flex-col gap-8">
+        <Heading
+          title="Add a photo of your place"
+          subtitle="Show guests what your place looks like!"
+        />
+        <ImageUpload
+          onChange={(value) => {
+            setCustomValue("imageSrc", value);
+          }}
+          value={imageSrc}
         />
       </div>
     );
