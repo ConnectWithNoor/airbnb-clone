@@ -1,17 +1,20 @@
 "use client";
 
-import React, { useMemo, useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import dynamic from "next/dynamic";
-import { FieldValues, useForm } from "react-hook-form";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import Modal from "./Modal";
 import useRentModal from "@/app/hooks/useRentModal";
 import Heading from "../typography/Heading";
-import { categories } from "@/app/utils/constants";
+import { LISTING_ADD_ENDPOINT, categories } from "@/app/utils/constants";
 import CategoryInput from "../form/CategoryInput";
 import CountrySelect from "../form/CountrySelect";
 import Counter from "../counter/Counter";
 import ImageUpload from "../form/imageUpload";
+import Input from "../form/Input";
+import axiosInstance from "@/app/libs/axiosInstance";
+import { useRouter } from "next/navigation";
 
 enum STEPS {
   CATEGORY = 0,
@@ -23,6 +26,7 @@ enum STEPS {
 }
 
 function RentModal() {
+  const router = useRouter();
   const rentModal = useRentModal();
   const [step, setStep] = useState(STEPS.CATEGORY);
   const Map = dynamic(() => import("../map/Map"), {
@@ -34,6 +38,7 @@ function RentModal() {
     handleSubmit,
     setValue,
     watch,
+    reset,
     formState: { errors },
   } = useForm<FieldValues>({
     defaultValues: {
@@ -55,6 +60,8 @@ function RentModal() {
   const roomCount = watch("roomCount");
   const bathroomCount = watch("bathroomCount");
   const imageSrc = watch("imageSrc");
+  const title = watch("title");
+  const description = watch("description");
 
   const setCustomValue = (id: string, value: any) => {
     setValue(id, value, {
@@ -75,10 +82,33 @@ function RentModal() {
       toast.error("Location is required");
     } else if (step === STEPS.IMAGES && !imageSrc) {
       toast.error("Image is required");
+    } else if (
+      step === STEPS.DESCRIPTION &&
+      (!title.trim() || !description.trim())
+    ) {
+      toast.error("Title and description are required");
     } else {
       setStep((value) => value + 1);
     }
   };
+
+  const onSubmit: SubmitHandler<FieldValues> = useCallback(
+    async (data) => {
+      if (step >= STEPS.PRICE) {
+        try {
+          await axiosInstance.post(LISTING_ADD_ENDPOINT, data);
+          toast.success("Listing Created!");
+          router.refresh();
+          reset();
+          setStep(STEPS.CATEGORY);
+          rentModal.onClose();
+        } catch (error) {
+          toast.error("Something went wrong");
+        }
+      }
+    },
+    [step, router, reset, rentModal]
+  );
 
   const actionLabel = useMemo(() => {
     if (step >= STEPS.PRICE) {
@@ -188,13 +218,62 @@ function RentModal() {
     );
   }
 
+  if (step === STEPS.DESCRIPTION) {
+    bodyContent = (
+      <div className="flex flex-col gap-8">
+        <Heading
+          title="How would you describe your place?"
+          subtitle="Short and sweet best!"
+        />
+        <Input
+          id="title"
+          label="Title"
+          disabled={false}
+          register={register}
+          errors={errors}
+          required
+        />
+        <hr />
+        <Input
+          id="description"
+          label="Description"
+          disabled={false}
+          register={register}
+          errors={errors}
+          required
+        />
+      </div>
+    );
+  }
+
+  if (step === STEPS.PRICE) {
+    bodyContent = (
+      <div className="flex flex-col gap-8">
+        <Heading
+          title="Now, set your price"
+          subtitle="How much do you charge per night?"
+        />
+        <Input
+          id="price"
+          label="Price"
+          formatPrice
+          type="number"
+          disabled={false}
+          register={register}
+          errors={errors}
+          required
+        />
+      </div>
+    );
+  }
+
   return (
     <Modal
       isOpen={rentModal.isOpen}
       title="Airbnb your home!"
       onClose={rentModal.onClose}
-      onSubmit={step >= STEPS.PRICE ? () => {} : null}
-      onNext={step <= STEPS.PRICE ? onNext : undefined}
+      onSubmit={step >= STEPS.PRICE ? handleSubmit(onSubmit) : null}
+      onNext={step < STEPS.PRICE ? onNext : null}
       actionLabel={actionLabel}
       secondaryActionLabel={secondaryActionLabel}
       secondaryAction={step <= STEPS.CATEGORY ? undefined : onBack}

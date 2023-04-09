@@ -8,7 +8,7 @@ type Props = {
   isOpen?: boolean;
   onClose: () => void;
   onSubmit: (() => void) | null;
-  onNext?: () => void;
+  onNext?: (() => void) | null;
   title?: string;
   body?: React.ReactNode;
   footer?: React.ReactNode;

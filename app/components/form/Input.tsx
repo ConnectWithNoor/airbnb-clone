@@ -5,7 +5,9 @@ import type {
   FieldErrors,
   FieldValues,
   UseFormRegister,
+  UseFormRegisterReturn,
 } from "react-hook-form";
+import { ForwardedRef } from "react";
 
 type Props = {
   id: string;
