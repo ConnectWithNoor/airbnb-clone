@@ -1,8 +1,8 @@
 "use client";
 
 import useCountries from "@/app/hooks/useCountries";
-import { SafeUser } from "@/app/types";
-import { Listing, Reservations } from "@prisma/client";
+import { SafeListing, SafeUser } from "@/app/types";
+import { Reservations } from "@prisma/client";
 import { useRouter } from "next/navigation";
 import { useCallback, useMemo } from "react";
 import { format } from "date-fns";
@@ -11,7 +11,7 @@ import HeartButton from "../form/HeartButton";
 import Button from "../form/Button";
 
 type Props = {
-  data: Listing;
+  data: SafeListing;
   currentUser?: SafeUser | null;
   reservation?: Reservations;
   onAction?: (id: string) => void;
