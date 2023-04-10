@@ -10,6 +10,7 @@ import LoginModal from "./modals/LoginModal";
 import RentModal from "./modals/RentModal";
 import EmptyState from "./EmptyState";
 import ListingCard from "./listings/ListingCard";
+import TripsClient from "./trips/TripsClient";
 
 export {
   Navbar,
@@ -24,4 +25,5 @@ export {
   RentModal,
   EmptyState,
   ListingCard,
+  TripsClient,
 };

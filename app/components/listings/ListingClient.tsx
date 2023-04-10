@@ -83,7 +83,7 @@ function ListingClient({ currentUser, listing, reservation = [] }: Props) {
 
       toast.success("Listing reserved!");
       setDateRange(initialDateRange);
-      // redirect to /trips
+      router.push("/trips");
     } catch (error) {
       toast.error("Something went wrong!");
     } finally {
@@ -96,6 +96,7 @@ function ListingClient({ currentUser, listing, reservation = [] }: Props) {
     dateRange.startDate,
     totalPrice,
     listing.id,
+    router,
   ]);
 
   return (
