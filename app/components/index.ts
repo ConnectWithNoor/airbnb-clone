@@ -12,6 +12,7 @@ import EmptyState from "./EmptyState";
 import ListingCard from "./listings/ListingCard";
 import TripsClient from "./trips/TripsClient";
 import ReservationsClient from "./reservations/ReservationsClient";
+import FavoritesClient from "./favorites/FavoritesClient";
 
 export {
   Navbar,
@@ -28,4 +29,5 @@ export {
   ListingCard,
   TripsClient,
   ReservationsClient,
+  FavoritesClient,
 };
