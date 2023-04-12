@@ -39,7 +39,9 @@ function RegisterModal() {
       try {
         setisLoading(true);
         await axiosInstance.post(USER_REGISTER_ENDPOINT, data);
+        toast.success("Success! Please login");
         registerModal.onClose();
+        loginModal.onOpen();
         reset();
       } catch (error) {
         toast.error("Something went wrong.");
@@ -47,7 +49,7 @@ function RegisterModal() {
         setisLoading(false);
       }
     },
-    [registerModal, reset]
+    [registerModal, reset, loginModal]
   );
 
   const toggle = useCallback(() => {

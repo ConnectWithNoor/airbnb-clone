@@ -1,4 +1,5 @@
 import prismaClient from "../libs/prismadb";
+import { SafeReservation } from "../types";
 
 type Params = {
   listingId?: string; // query by listing
@@ -23,6 +24,10 @@ export default async function getReservations({
 
     if (authorId) {
       query.listing = { userId: authorId };
+    }
+
+    if (Object.keys(query).length <= 0) {
+      return [];
     }
 
     const reservations = await prismaClient.reservation.findMany({
