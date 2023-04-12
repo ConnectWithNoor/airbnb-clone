@@ -13,6 +13,7 @@ import ListingCard from "./listings/ListingCard";
 import TripsClient from "./trips/TripsClient";
 import ReservationsClient from "./reservations/ReservationsClient";
 import FavoritesClient from "./favorites/FavoritesClient";
+import PropertiesClient from "./properties/PropertiesClient";
 
 export {
   Navbar,
@@ -30,4 +31,5 @@ export {
   TripsClient,
   ReservationsClient,
   FavoritesClient,
+  PropertiesClient,
 };

@@ -35,3 +35,7 @@ export type CountrySelectValue = {
   region: string;
   value: string;
 };
+
+export type ListingParams = {
+  userId?: string;
+};

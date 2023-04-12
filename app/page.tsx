@@ -1,9 +1,14 @@
 import getCurrentUser from "./actions/getCurrentUser";
 import getListings from "./actions/getListings";
 import { ClientOnly, Container, EmptyState, ListingCard } from "./components";
+import { ListingParams } from "./types";
 
-export default async function Home() {
-  const listings = await getListings();
+type Props = {
+  searchParams: ListingParams;
+};
+
+export default async function Home({ searchParams }: Props) {
+  const listings = await getListings(searchParams);
   const currentUser = await getCurrentUser();
 
   if (listings.length <= 0) {

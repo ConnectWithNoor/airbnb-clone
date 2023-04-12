@@ -1,5 +1,4 @@
 import { SafeListing, SafeUser } from "@/app/types";
-import React from "react";
 import Container from "../container/Container";
 import Heading from "../typography/Heading";
 import ListingCard from "../listings/ListingCard";
