@@ -7,7 +7,7 @@ type Props = {
   outline?: boolean;
   small?: boolean;
   icon?: IconType;
-  type?: string;
+  type?: "button" | "submit";
 };
 
 function Button({
