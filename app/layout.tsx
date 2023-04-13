@@ -10,6 +10,7 @@ import {
 } from "./components";
 import ToasterProvider from "./providers/ToasterProvider";
 import getCurrentUser from "./actions/getCurrentUser";
+import SearchModal from "./components/modals/SearchModal";
 
 export const metadata = {
   title: "Airbnb Clone - ConnectWithNoor",
@@ -34,6 +35,7 @@ export default async function RootLayout({
           <RegisterModal />
           <LoginModal />
           <RentModal />
+          <SearchModal />
           <Navbar currentUser={currentUser} />
           <ToasterProvider />
         </ClientOnly>

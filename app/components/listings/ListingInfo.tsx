@@ -5,8 +5,6 @@ import Avatar from "../user/Avatar";
 import ListingCategory from "./ListingCategory";
 import dynamic from "next/dynamic";
 
-const Map = dynamic(() => import("../map/Map"), { ssr: false });
-
 type Props = {
   user: SafeUser;
   description: string;
@@ -34,6 +32,7 @@ function ListingInfo({
 }: Props) {
   const { getByValue } = useCountries();
   const coordinates = getByValue(locationValue)?.latlng;
+  const Map = dynamic(() => import("../map/Map"), { ssr: false });
 
   return (
     <div className="col-span-4 flex flex-col gap-8">

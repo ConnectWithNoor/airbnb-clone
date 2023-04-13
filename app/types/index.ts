@@ -38,4 +38,11 @@ export type CountrySelectValue = {
 
 export type ListingParams = {
   userId?: string;
+  guestCount?: string;
+  roomCount?: string;
+  bathroomCount?: string;
+  startDate?: string;
+  endDate?: string;
+  locationValue?: string;
+  category?: string;
 };
